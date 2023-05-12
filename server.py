@@ -29,9 +29,9 @@ def index():
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
     # Check if email exist and redirect to "welcome"
-    club = [club for club in clubs if club['email'] == request.form['email']][0]
+    club = [club for club in clubs if club['email'] == request.form['email']]
     if club:
-        return render_template('welcome.html', club=club, competitions=competitions)
+        return render_template('welcome.html', club=club[0], competitions=competitions)
 
     # else redirect to 'index' with message error
     else:
