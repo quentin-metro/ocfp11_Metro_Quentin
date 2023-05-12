@@ -28,8 +28,11 @@ def index():
 
 @app.route('/showSummary', methods=['POST'])
 def showSummary():
-    # Check if email exist and redirect to "welcome"
-    club = [club for club in clubs if club['email'] == request.form['email']]
+    # Check if email exist or check name and redirect to "welcome"
+    if request.form.get('email'):
+        club = [club for club in clubs if club['email'] == request.form['email']]
+    else:
+        club = [club for club in clubs if club['name'] == request.form['club']]
     if club:
         return render_template('welcome.html', club=club[0], competitions=competitions)
 
@@ -55,10 +58,13 @@ def purchasePlaces():
     competition = [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
-    competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
-    club['points'] = int(club['points']) - placesRequired
-    flash('Great-booking complete!')
-    return render_template('welcome.html', club=club, competitions=competitions)
+    competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
+    if int(club['points']) >= placesRequired:
+        club['points'] = int(club['points']) - placesRequired
+        flash('Great-booking complete!')
+    else:
+        flash('You don\'t have enough points available')
+    return redirect('/showSummary', code=307)
 
 
 # TODO: Add route for points display
