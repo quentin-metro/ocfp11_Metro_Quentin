@@ -31,7 +31,7 @@ def test_showSummary_post_incorrect(client):
 def test_purchasePlaces(client):
     club = "Iron Temple"
     competition = "Fall Classic"
-    places = '4'
+    places = '1'
     response = client.post('/purchasePlaces',
                            data={'club': club,
                                  'competition': competition,
@@ -46,6 +46,27 @@ def test_purchasePlaces(client):
                                  }
                            )
     assert b'Great-booking complete!' in response.data
+
+
+
+def test_purchasePlaces_not_enough(client):
+    club = "Iron Temple"
+    competition = "Fall Classic"
+    places = '11'
+    response = client.post('/purchasePlaces',
+                           data={'club': club,
+                                 'competition': competition,
+                                 'places': places
+                                 },
+                           )
+    assert response.status_code == 307
+    response = client.post('/showSummary',
+                           data={'club': club,
+                                 'competition': competition,
+                                 'places': places
+                                 }
+                           )
+    assert b'You don&#39;t have enough points available' in response.data
 
 
 def test_purchasePlaces_too_much(client):
@@ -65,4 +86,5 @@ def test_purchasePlaces_too_much(client):
                                  'places': places
                                  }
                            )
-    assert b'You don&#39;t have enough points available' in response.data
+    assert b'Not enough place available' in response.data
+
