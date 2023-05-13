@@ -88,6 +88,7 @@ def purchasePlaces():
         competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
         # check if enough points available
         if int(club['points']) >= placesRequired:
+            # Deduct taken places from club points
             club['points'] = int(club['points']) - placesRequired
             flash('Great-booking complete!')
         else:
