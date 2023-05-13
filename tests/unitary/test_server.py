@@ -48,7 +48,6 @@ def test_purchasePlaces(client):
     assert b'Great-booking complete!' in response.data
 
 
-
 def test_purchasePlaces_not_enough(client):
     club = "Iron Temple"
     competition = "Fall Classic"
@@ -88,3 +87,16 @@ def test_purchasePlaces_too_much(client):
                            )
     assert b'Not enough place available' in response.data
 
+
+def test_purchasePlaces_bad_time(client):
+    club = "Iron Temple"
+    competition = "Spring Festival"
+    places = '40'
+    response = client.post('/purchasePlaces',
+                           data={'club': club,
+                                 'competition': competition,
+                                 'places': places
+                                 },
+                           )
+    assert response.status_code == 200
+    assert b'This competition is over' in response.data
