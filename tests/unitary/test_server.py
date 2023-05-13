@@ -5,6 +5,7 @@ from tests.conftest import client
 def test_index(client):
     response = client.get('/')
     assert response.status_code == 200
+    # assert b"Simply Lift : 13 points." in response.data
 
 
 def test_index_with_error(client):

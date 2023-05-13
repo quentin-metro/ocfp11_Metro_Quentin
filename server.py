@@ -24,7 +24,7 @@ clubs = loadClubs()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', clubs=clubs)
 
 
 @app.route('/showSummary', methods=['POST'])
@@ -67,7 +67,8 @@ def book(competition, club):
         flash("Something went wrong-please try again")
         return render_template('welcome.html',
                                club=club,
-                               competitions=competitions
+                               competitions=competitions,
+                               datetime=str(datetime.now())
                                )
 
 
