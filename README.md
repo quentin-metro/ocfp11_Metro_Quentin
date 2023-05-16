@@ -43,13 +43,19 @@
     * clubs.json - list of clubs with relevant information. You can look here to see what email addresses the app will accept for login.
 
 5. Testing
+
    We use `pytest` for testing. 
+   
    Use the command `pytest` for launch all the tests
 
 6. Coverage
+
    We use `coverage` et `pytest-cov` for test coverage analyze
+   
    Use the command line `pytest --cov=. --cov-report html`, it will create a directory hmtlcov
+   
    `index.hmtl` will show the coverage of the project
+   
    `server_py.html` will show the coverage of the 'server.py' file
 
 
@@ -58,6 +64,8 @@
 7. Performance
 
    We use `Locust` for server performance testing
+   
    Use `locust -f .\locust\locustfile.py --web-host localhost`
+   
    Tested with 6 users.
 
