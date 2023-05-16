@@ -49,3 +49,9 @@
     We also like to show how well we're testing, so there's a module called 
     [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
 
+6. Performance
+
+   We use `Locust` for server performance testing
+   Use `locust -f .\locust\locustfile.py --web-host localhost`
+   Tested with 6 users.
+
