@@ -87,11 +87,11 @@ def purchasePlaces():
                                datetime=str(datetime.now())
                                )
     elif 0 <= placesRequired <= 12 and placesRequired <= int(competition['numberOfPlaces']):
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
         # check if enough points available
         if int(club['points']) >= placesRequired:
             # Deduct taken places from club points
             club['points'] = int(club['points']) - placesRequired
+            competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
             flash('Great-booking complete!')
         else:
             flash('You don\'t have enough points available')
